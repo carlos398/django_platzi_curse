@@ -1,0 +1,83 @@
+-----------creacion de entorno virtual linux------------------
+Podemos crear un virtualenv en Linux y OS X, es tan sencillo como ejecutar python3 -m venv myvenv. Se verá así:
+
+command-line
+$ python3 -m venv myvenv
+myvenv es el nombre de tu virtualenv. Puedes usar cualquier otro nombre, pero sólo utiliza minúsculas y no incluyas espacios. También es una buena idea mantener el nombre corto. ¡Vas a referirte muchas veces a él!
+
+NOTA: En algunas versiones de Debian/Ubuntu, puede que obtengas el siguiente error:
+
+command-line
+The virtual environment was not created successfully because ensurepip is not available.  En sistemas Debian/Ubuntu, tendrás que instalar el paquete python3-venv usando el siguiente comando.
+   apt-get install python3-venv
+Puede que tengas que usar sudo con este comando.  Después de instalar el paquete python3-venv, vuelve a crear tu entorno virtual.
+En este caso, sigue las instrucciones anteriores e instala el paquete python3-venv:
+
+command-line
+$ sudo apt install python3-venv
+NOTA: En algunas versiones de Debian/Ubuntu inicializar el entorno virtual de esta manera da el siguiente error:
+
+command-line
+Error: Command '['/home/eddie/Slask/tmp/venv/bin/python3', '-Im', 'ensurepip', '--upgrade', '--default-pip']' returned non-zero exit status 1
+Para evitar esto, utiliza directamente el comando virtualenv.
+
+command-line
+$ sudo apt-get install python-virtualenv
+$ virtualenv --python=python3.6 myvenv
+NOTA: Si obtienes un error como
+
+command-line
+E: Unable to locate package python3-venv
+entonces ejecuta:
+
+command-line
+sudo apt install python3.6-venv
+---------------------------------------------------------
+
+
+Inicia el entorno virtual ejecutando:
+
+command-line
+$ source myvenv/bin/activate
+¡Recuerda reemplazar myvenv con tu nombre de virtualenv que hayas elegido!
+
+NOTA: a veces source podría no estar disponible. En ese caso trata hacerlo de esta forma:
+
+command-line
+$ . myvenv/bin/activate
+
+-------------------------------------------------------------
+
+Instalar Django
+Ahora que tienes tu virtualenv iniciado, puedes instalar Django.
+
+Antes de hacer eso, debemos asegurarnos que tenemos la última versión de pip, el software que utilizamos para instalar Django:
+
+command-line
+(myvenv) ~$ python -m pip install --upgrade pip
+
+---------------------------------------------------------------
+
+Instalar paquetes con un fichero de requisitos (requirements)
+Un fichero de requisitos (requirements) tiene una lista de dependencias que se deben instalar mediante pip install:
+
+Primero crea un archivo requirements.txt dentro de tu directorio djangogirls, usando el editor de código que instalaste previamente. Lo puedes hacer mediante abriendo un nuevo archivo en el editor de código y guardándolo como requirements.txt en el directorio djangogirls. Tu directorio se verá así:
+
+djangogirls
+└───requirements.txt
+Dentro del fichero djangogirls/requirements.txt deberías tener el siguiente texto:
+
+djangogirls/requirements.txt
+Django~=2.2.4
+Ahora, ejecuta pip install -r requirements.txt para instalar Django.
+
+command-line
+(myvenv) ~$ pip install -r requirements.txt
+Collecting Django~=2.2.4 (from -r requirements.txt (line 1))
+  Downloading Django-2.2.4-py3-none-any.whl (7.1MB)
+Installing collected packages: Django
+Successfully installed Django-2.2.4
+
+------------------------------------------------
+
+python -m pip install -U --force-reinstall pip
