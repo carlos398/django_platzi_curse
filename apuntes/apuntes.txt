@@ -19,3 +19,13 @@
 para crear el archivo 
 
 pip freeze > requirements.txt 
+
+
+para iniciar un proyecto
+
+django-admin startproject platzigram
+
+
+correr el servidor
+
+/Desktop/Carlos Reyes/django-curso/django/platzigram$ python3 manage.py runserver
