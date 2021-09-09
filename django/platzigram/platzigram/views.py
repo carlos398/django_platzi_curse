@@ -17,13 +17,13 @@ def hello_world(request):
         ))
     
     
-def hi(request):
-    """Hi"""
+def sort_method1(request):
+    """primera forma de usar json con un get en el url"""
     numbers = map(lambda x : int(x),request.GET["numbers"].split(","))
     return JsonResponse({ "numbers" : sorted(numbers)},json_dumps_params={'indent': 4})
 
 
-def hi2(request):
+def sort_method2(request):
     """segunda forma de hacer un json"""
     numers = [int(i) for i in request.GET['numbers'].split(',')]
     sorted_ints = sorted(numers)
@@ -37,3 +37,12 @@ def hi2(request):
         json.dumps(data, indent=4),
         content_type='application/json'
     )
+    
+
+def say_hi(request, name, age):
+    if age < 12 :
+        message = 'sorry {}, you are not allowed here'.format(name)
+    else:
+        message = 'hello, {}! Welcome to platzigram'.format(name)
+    
+    return HttpResponse(message)
