@@ -25,7 +25,7 @@ def hi(request):
 
 def hi2(request):
     """segunda forma de hacer un json"""
-    numers = [int(i) for i in request.GET['numbers'.split(',')]]
+    numers = [int(i) for i in request.GET['numbers'].split(',')]
     sorted_ints = sorted(numers)
     data = {
         'status': 'ok',
