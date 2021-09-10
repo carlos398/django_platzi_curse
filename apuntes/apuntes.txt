@@ -29,3 +29,8 @@ django-admin startproject platzigram
 correr el servidor
 
 /Desktop/Carlos Reyes/django-curso/django/platzigram$ python3 manage.py runserver
+
+
+crear app
+
+python3 manage.py startapp posts
