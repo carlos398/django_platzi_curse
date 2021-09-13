@@ -34,3 +34,4 @@ correr el servidor
 crear app
 
 python3 manage.py startapp posts
+aaaaa
