@@ -34,4 +34,6 @@ correr el servidor
 crear app
 
 python3 manage.py startapp posts
-aaaaa
+
+
+en setings debe buscarse installed apps y agregar ahi el nombre de la app con una , al final
