@@ -7,6 +7,7 @@
 
 1. Correr `python3 -m venv ENTORNO` donde `ENTORNO` sea el nombre deseado
 2. Correr `source ENTORNO/bin/activate` para activar el entorno
+    myvenv\Scripts\activate
 3. Correr `deactivate` para desactivar el entorno
 
 ## Instalación de django
@@ -37,3 +38,19 @@ python3 manage.py startapp posts
 
 
 en setings debe buscarse installed apps y agregar ahi el nombre de la app con una , al final
+
+tambien recordar que todo se maneja desde urls
+
+
+para las bases de datis
+
+created
+—> auto_now_add En cuanto se cree una instancia de ésta tabla en la base de datos, le va a cargar la fecha en la que se creó.
+modified
+—> auto_now Le guarda la fecha en la que se editó por última vez.
+
+
+python manage.py migrate
+Va a aplicar esos cambios en nuestra base de datos.
+python manage.py makemigrations
+Va a buscar los cambios en nuestros modelos y los va a reflejar en un archivo.
