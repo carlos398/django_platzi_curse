@@ -10,8 +10,10 @@ class User(models.Model):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=100)
 
-    firs_name = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
+
+    admin = models.BooleanField(default=False)
 
     bio = models.TextField(blank=True)
 
