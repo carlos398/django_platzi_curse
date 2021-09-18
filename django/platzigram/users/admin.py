@@ -26,3 +26,15 @@ class ProfileAdmin(admin.ModelAdmin):
         'user__is_active',
         'user__is_staff'
         )
+    
+    fieldsets = (
+        ('Profile', {
+            'fields': (('user', 'picture'),),
+        }),
+        ('Extra info', {
+            'fields': (
+                ('website', 'phone_number'),
+                ('biography')
+            )
+        })
+    )
