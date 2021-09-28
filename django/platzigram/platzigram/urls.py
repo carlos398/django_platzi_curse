@@ -22,14 +22,16 @@ from django.conf.urls.static import static
 #personales
 from platzigram import views as local_views
 from posts import views as post_views
+from users import views as users_views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello-world/', local_views.hello_world),
-    path('sort_method1/', local_views.sort_method1),
-    path('sort_method2/', local_views.sort_method2),
-    path('hi/<str:name>/<int:age>/',local_views.say_hi),
+    path('hello-world/', local_views.hello_world, name='hello_world'),
+    path('sort_method1/', local_views.sort_method1, name='sort'),
+    path('sort_method2/', local_views.sort_method2, name='sort2'),
+    path('hi/<str:name>/<int:age>/',local_views.say_hi, name='hi'),
     
-    path('posts/',post_views.list_posts),
+    path('posts/',post_views.list_posts, name='feed'),
+    path('users/login/', users_views.login_view, name='login')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
