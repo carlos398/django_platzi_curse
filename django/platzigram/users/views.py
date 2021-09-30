@@ -9,6 +9,9 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from users.models import Profile
 
+#exceptions
+from django.db.utils import IntegrityError
+
 def login_view(request):
     """login view"""
     if request.method == 'POST':
@@ -24,6 +27,7 @@ def login_view(request):
     return render(request, 'users/login.html')
 
 
+
 def signup(request):
     """signup"""
     if request.method == 'POST':
@@ -33,11 +37,16 @@ def signup(request):
 
         if psswd != psswd_confirmation:
             return render(request, 'users/signup.html', {'error': 'passwprd confirmation does not match'})
+
+        try:
+            user = User.objects.create_user(username=username, password=psswd)
+        except IntegrityError:
+            return render(request, 'users/signup.html', {'error': 'the user is all ready in use'})
         
-        user = User.objt.create_user(username=username, password=psswd)
         user.first_name = request.POST['firstname']
         user.last_name = request.POST['lastname']
         user.femail = request.POST['email']
+        user.save()
 
         profile = Profile(user=user)
         profile.save()
