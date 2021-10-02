@@ -12,6 +12,13 @@ from users.models import Profile
 #exceptions
 from django.db.utils import IntegrityError
 
+
+def update_profile(request):
+    """update user's profile view"""
+    return render(request, 'users/update_profile.html')
+    
+
+
 def login_view(request):
     """login view"""
     if request.method == 'POST':

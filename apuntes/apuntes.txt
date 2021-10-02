@@ -76,3 +76,12 @@ App: Conjunto de código que se encarga de resolver una parte
 muy específica del proyecto, contiene sus modelos, vistas, urls, etc.
 
 Patrón de diseño: Solución común a un problema particular.
+
+
+
+
+# EMAIL VALIDATION
+        u = User.objects.filter(email=email)
+        if u:
+            error = f'There is another account using {email}'
+            return render(request, 'users/signup.html', {'error': error})
