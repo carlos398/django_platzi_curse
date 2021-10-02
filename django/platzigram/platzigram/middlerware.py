@@ -2,7 +2,7 @@
 
 #Django
 from django.shortcuts import redirect
-
+from django.urls import reverse
 
 
 class ProfileCompletionMiddleware:
@@ -24,7 +24,8 @@ class ProfileCompletionMiddleware:
         if not request.user.is_anonymous:
             profile = request.user.profile
             if not profile.picture or not profile.biography:
-                return redirect('update_profile')
+                if request.path not in [reverse('update_profile'), reverse('logout')]:
+                    return redirect('update_profile')
 
         response = self.get_response(request)
         return response
