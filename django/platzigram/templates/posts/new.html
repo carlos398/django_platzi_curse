@@ -11,9 +11,9 @@
                 {% csrf_token %}
 
                 <input type="hidden" name="user" value="{{ user.pk}}" />
-                <input type="hidden" name="Profile" value="{{ Profile.pk }}" /> {# Website field #}
+                <input type="hidden" name="Profile" value="{{ profile.pk }}" /> {# Website field #}
                 <div class="form-group">
-                    <input class="form-control {% if form.title.errors %}is-invalid{% endif %}" type="text" name="title" placeholder="Title" value="{% if form.errors %}{{ form.title.value }}{% endif %}">
+                    <input class="form-control {% if form.title.errors %}is-invalid{% endif %}" type="text" name="title" placeholder="Title">
                     <div class="invalid-feedback">
                         {% for error in form.title.errors %}{{ error }}{% endfor %}
                     </div>
