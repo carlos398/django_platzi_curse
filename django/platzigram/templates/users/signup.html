@@ -1,38 +1,12 @@
-{% extends "users/base.html" %}
+{% extends "users/base.html" %} {% block head_content %}
+<title>Platzigram sign up</title>
+{% endblock %} {% block container %}
 
-{% block head_content %}
-<title> platzigram sign up </title>
-{% endblock %}
+<form action="{% url 'signup' %}" method="POST">
+    {% csrf_token %} {{ form.as_p }}
 
-{% block container %}
+    <button class="btn btn-primary btn-block mt-5" type="submit">Register!</button>
 
-    {% if error %}
-        <p class="alert alert-danger">{{ error }} </p>
-    {% endif %}
+</form>
 
-    <form action="{% url 'signup' %}" method="POST">
-        {% csrf_token %}
-
-        <div class="form-group">
-            <input class="form-control" type="text" placeholder="User name" name="username" required="true"/>
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="password" placeholder="Password" name="password" required="true"/>
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="password" placeholder="Password confirmation" name="password_confirmation" required="true"/>
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="text" placeholder="First name" name="firstname" required="true"/>
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="text" placeholder="last name" name="lastname" required="true"/>
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="email" placeholder="Email address" name="email" required="true"/>
-        </div>
-
-        <button class="btn btn-primary btn-block mt-5" type="submit">Register!</button>
-
-    </form>
 {% endblock %}

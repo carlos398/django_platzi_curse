@@ -5,6 +5,7 @@ from django import forms
 
 # models
 from django.contrib.auth.models import User
+from users.models import Profile
 
 class SignupForm(forms.Form):
     """Sign up form"""
@@ -22,11 +23,32 @@ class SignupForm(forms.Form):
     def clean_username(self):
         """username must be unique"""
         username = self.cleaned_data['username']
-        username_in_use = User.object.filter(username=username).exist()
+        username_in_use = User.objects.filter(username=username).exists()
         if username_in_use:
             raise forms.ValidationError('username is already in use')
         return username
 
+
+    def clean(self):
+        """Verify password confirmation match """
+        data = super().clean()
+
+        password = data['password']
+        password_confirmation = data['password_confirmation']
+
+        if password != password_confirmation:
+            raise forms.ValidationError('passwprds do not match')
+
+        return data
+
+
+    def safe(self):
+        data = self.cleaned_data
+        data.pop('password_confirmation')
+
+        user = User.objets.create_user(**data)
+        profile = Profile(user=user)
+        profile.save()
 
 class ProfileForm(forms.Form):
     """Profile form."""

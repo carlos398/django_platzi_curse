@@ -1,18 +1,12 @@
-"""users views"""
+"""Users views."""
 
-#Django
+# Django
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render
+from django.shortcuts import render, redirect
 
-#models
-from django.contrib.auth.models import User
-from users.models import Profile
-
-#exceptions
-from django.db.utils import IntegrityError
 # Forms
-from users.forms import ProfileForm
+from users.forms import ProfileForm, SignupForm
 
 
 @login_required
@@ -44,55 +38,43 @@ def update_profile(request):
             'user': request.user,
             'form': form
         }
-    )  
+    )
 
 
 def login_view(request):
-    """login view"""
+    """Login view."""
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user:
-            login(request,user)
+            login(request, user)
             return redirect('feed')
         else:
-            return render(request,'users/login.html', {'error': 'invalid username and password'})
+            return render(request, 'users/login.html', {'error': 'Invalid username and password'})
 
     return render(request, 'users/login.html')
 
 
-
 def signup(request):
-    """signup"""
+    """Sign up view."""
     if request.method == 'POST':
-        username = request.POST['username']
-        psswd = request.POST['password']
-        psswd_confirmation = request.POST['password_confirmation']
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = SignupForm()
 
-        if psswd != psswd_confirmation:
-            return render(request, 'users/signup.html', {'error': 'passwprd confirmation does not match'})
-
-        try:
-            user = User.objects.create_user(username=username, password=psswd)
-        except IntegrityError:
-            return render(request, 'users/signup.html', {'error': 'the user is all ready in use'})
-        
-        user.first_name = request.POST['firstname']
-        user.last_name = request.POST['lastname']
-        user.femail = request.POST['email']
-        user.save()
-
-        profile = Profile(user=user)
-        profile.save()
-
-        return redirect('login')
-
-    return render(request, 'users/signup.html')
+    return render(
+        request=request,
+        template_name='users/signup.html',
+        context={'form': form}
+    )
 
 
 @login_required
 def logout_view(request):
-    """logout a user"""
+    """Logout a user."""
     logout(request)
     return redirect('login')
